@@ -1,22 +1,41 @@
-// RevealOnFlashlight.cs
 using UnityEngine;
 
 [RequireComponent(typeof(Renderer))]
 public class RevealOnFlashlight : MonoBehaviour
 {
     public Light flashlight;
-    Renderer rend;
+    private Material mat;
+    private Color baseColor;
 
-    void Awake(){ rend = GetComponent<Renderer>(); rend.enabled = false; }
+    void Start()
+    {
+        mat = GetComponent<Renderer>().material;
+        baseColor = mat.color;
+        SetAlpha(0f);
+    }
 
     void Update()
     {
-        if (flashlight == null){ rend.enabled = false; return; }
+        if (flashlight == null || !flashlight.enabled)
+        {
+            SetAlpha(0f);
+            return;
+        }
 
-        Vector3 toMe = transform.position - flashlight.transform.position;
-        bool inRange = toMe.magnitude < flashlight.range;
-        bool inCone  = Vector3.Angle(flashlight.transform.forward, toMe) < flashlight.spotAngle * 0.5f;
+        Vector3 dir = transform.position - flashlight.transform.position;
+        float dist = dir.magnitude;
+        float angle = Vector3.Angle(flashlight.transform.forward, dir);
 
-        rend.enabled = flashlight.enabled && inRange && inCone;
+        if (dist < flashlight.range && angle < flashlight.spotAngle * 0.5f)
+            SetAlpha(1f);
+        else
+            SetAlpha(0f);
+    }
+
+    void SetAlpha(float a)
+    {
+        Color c = baseColor;
+        c.a = a;
+        mat.color = c;
     }
 }
