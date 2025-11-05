@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Renderer))]
+// Renderer required on object or children
 public class RevealOnFlashlight : MonoBehaviour
 {
     public Light flashlight;
@@ -9,7 +9,7 @@ public class RevealOnFlashlight : MonoBehaviour
 
     void Start()
     {
-        mat = GetComponent<Renderer>().material;
+        mat = GetComponentInChildren<Renderer>().material;
         baseColor = mat.color;
         SetAlpha(0f);
     }
