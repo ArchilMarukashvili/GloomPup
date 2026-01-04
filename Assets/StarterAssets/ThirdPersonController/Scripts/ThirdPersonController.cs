@@ -3,6 +3,8 @@
 using UnityEngine.InputSystem;
 #endif
 
+
+
 /* Note: animations are called via the controller for both the character and capsule using animator null checks
  */
 
@@ -101,7 +103,8 @@ namespace StarterAssets
 #if ENABLE_INPUT_SYSTEM 
         private PlayerInput _playerInput;
 #endif
-        private Animator _animator;
+        [SerializeField] private Animator _animator;
+
         private CharacterController _controller;
         private StarterAssetsInputs _input;
         private GameObject _mainCamera;
@@ -136,8 +139,11 @@ namespace StarterAssets
         private void Start()
         {
             _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
+
+            _hasAnimator = _animator != null;
+
             
-            _hasAnimator = TryGetComponent(out _animator);
+            
             _controller = GetComponent<CharacterController>();
             _input = GetComponent<StarterAssetsInputs>();
 #if ENABLE_INPUT_SYSTEM 
@@ -155,7 +161,7 @@ namespace StarterAssets
 
         private void Update()
         {
-            _hasAnimator = TryGetComponent(out _animator);
+         
 
             JumpAndGravity();
             GroundedCheck();
@@ -275,12 +281,19 @@ namespace StarterAssets
             _controller.Move(targetDirection.normalized * (_speed * Time.deltaTime) +
                              new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
 
-            // update animator if using character
-            if (_hasAnimator)
-            {
-                _animator.SetFloat(_animIDSpeed, _animationBlend);
-                _animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
-            }
+           // update animator if using character
+if (_hasAnimator)
+{
+    // This drives your Animator float parameter named "Speed"
+    // Use _speed (actual movement speed after smoothing), not targetSpeed
+    _animator.SetFloat("Speed", _speed);
+
+    // keep these if you still use them in your controller
+    _animator.SetFloat(_animIDSpeed, _animationBlend);
+    _animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
+}
+
+            
         }
 
 
