@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4451134058566989653}
   - component: {fileID: 1858371868706938441}
   - component: {fileID: 6879606872055420713}
+  - component: {fileID: 1016497485576747489}
   m_Layer: 0
   m_Name: BlackHoleEnemy
   m_TagString: Enemy
@@ -54,7 +55,7 @@ ParticleSystem:
   emitterVelocityMode: 1
   looping: 1
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -4964,6 +4965,21 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1016497485576747489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4156889431191748954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9b1be7d57f0f844d94eb693708d3dac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particles: {fileID: 6345052070374978871}
+  player: {fileID: 0}
+  activationDistance: 20
 --- !u!1 &5177210373736337238
 GameObject:
   m_ObjectHideFlags: 0
