@@ -4979,7 +4979,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   particles: {fileID: 6345052070374978871}
   player: {fileID: 0}
-  activationDistance: 20
+  activationDistance: 15
 --- !u!1 &5177210373736337238
 GameObject:
   m_ObjectHideFlags: 0
